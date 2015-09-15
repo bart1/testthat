@@ -1,43 +1,54 @@
 Package: testthat
-Type: Package
-Title: Testthat code.  Tools to make testing fun :)
-Version: 0.8.1.0.99
-Author: Hadley Wickham <h.wickham@gmail.com>
-Maintainer: Hadley Wickham <h.wickham@gmail.com>
-Description: A testing package specifically tailored for R
-    that's fun, flexible and easy to set up.
-URL: http://had.co.nz/
+Version: 0.10.0.9000
+Title: Unit Testing for R
+Description: A unit testing system designed to be fun, flexible and easy to
+    set up.
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
+    person("RStudio", role = "cph")
+    )
+URL: https://github.com/hadley/testthat
+BugReports: https://github.com/hadley/testthat/issues
 Depends:
-    R (>= 2.15.0)
+    R (>= 3.1.0),
+    methods
 Imports:
     digest,
-    methods
+    crayon
+Suggests:
+    devtools
 License: MIT + file LICENSE
-LazyData: true
-Roxygen: list(wrap = FALSE)
 Collate:
     'auto-test.r'
     'colour-text.r'
     'compare.r'
     'context.r'
+    'describe.r'
     'evaluate-promise.r'
     'expect-that.r'
     'expectation.r'
+    'expectations-equality.R'
+    'expectations-matches.R'
+    'expectations-old.R'
     'expectations.r'
-    'library.r'
     'make-expectation.r'
+    'mock.r'
     'reporter.r'
+    'reporter-check.R'
     'reporter-list.r'
     'reporter-minimal.r'
     'reporter-multi.r'
+    'reporter-rstudio.R'
     'reporter-silent.r'
     'reporter-stop.r'
     'reporter-summary.r'
     'reporter-tap.r'
     'reporter-teamcity.r'
     'reporter-zzz.r'
+    'test-example.R'
     'test-files.r'
     'test-package.r'
+    'test-results.r'
     'test-that.r'
     'traceback.r'
     'utils.r'

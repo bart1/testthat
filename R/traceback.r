@@ -1,5 +1,3 @@
-is.error <- function(x) inherits(x, "error")
-
 create_traceback <- function(callstack) {
   if (length(callstack) == 0) return()
   max_lines <- getOption("deparse.max.lines", Inf)
@@ -13,7 +11,7 @@ create_traceback <- function(callstack) {
 
   # Extract srcrefs
   srcrefs <- lapply(callstack, attr, "srcref")
-  has_ref <- !vapply(srcrefs, is.null, logical(1))
+  has_ref <- vapply(srcrefs, function(x) inherits(x, "srcref"), logical(1))
   files <-  vapply(srcrefs[has_ref], function(x) attr(x, "srcfile")$filename,
     FUN.VALUE = character(1))
   lines <-  vapply(srcrefs[has_ref], function(x) as.vector(x)[1],
@@ -25,21 +23,5 @@ create_traceback <- function(callstack) {
   calls <- paste0(seq_along(calls), ": ", calls)
   calls <- gsub("\n", "\n   ", calls)
   calls
-}
-
-try_capture_stack <- function(quoted_code, env) {
-  capture_calls <- function(e) {
-    # Capture call stack, removing last two calls from end (added by
-    # withCallingHandlers), and first frame + 7 calls from start (added by
-    # tryCatch etc)
-    e$calls <- head(sys.calls()[-seq_len(frame + 7)], -2)
-    signalCondition(e)
-  }
-  frame <- sys.nframe()
-
-  tryCatch(
-    withCallingHandlers(eval(quoted_code, env), error = capture_calls),
-    error = identity
-  )
 }
 
